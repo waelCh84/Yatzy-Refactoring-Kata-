@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -120,18 +121,23 @@ public class YatzyTest {
     }
     
     @Test
-    public void smallStraight() {
-        assertEquals(15, Yatzy.smallStraight(1,2,3,4,5));
-        assertEquals(15, Yatzy.smallStraight(2,3,4,5,1));
-        assertEquals(0, Yatzy.smallStraight(1,2,2,4,5));
+    public void shouldComputeSmallStraightScoresSumOfAllDice() {
+    	List<Integer> expectedStraightList = Arrays.asList(1,2,3,4,5);
+    	yatzy.setDice(Arrays.asList(2,3,4,5,1));
+        assertEquals(15, Yatzy.computeStraightScore(yatzy.getDice(), expectedStraightList, Yatzy.Straight.SMALL));
+        yatzy.setDice(Arrays.asList(1,2,2,4,5));
+        assertEquals(0, Yatzy.computeStraightScore(yatzy.getDice(), expectedStraightList, Yatzy.Straight.SMALL));
     }
-
+    
     @Test
-    public void largeStraight() {
-        assertEquals(20, Yatzy.largeStraight(6,2,3,4,5));
-        assertEquals(20, Yatzy.largeStraight(2,3,4,5,6));
-        assertEquals(0, Yatzy.largeStraight(1,2,2,4,5));
+    public void shouldComputeLargeStraightScoresSumOfAllDice() {
+    	List<Integer> expectedStraightList = Arrays.asList(2,3,4,5,6);
+    	yatzy.setDice(Arrays.asList(6,2,3,4,5));
+        assertEquals(20, Yatzy.computeStraightScore(yatzy.getDice(), expectedStraightList, Yatzy.Straight.LARGE));
+        yatzy.setDice(Arrays.asList(2,3,4,5,6));
+        assertEquals(20, Yatzy.computeStraightScore(yatzy.getDice(), expectedStraightList, Yatzy.Straight.LARGE));
+        yatzy.setDice(Arrays.asList(1,2,2,4,5));
+        assertEquals(0, Yatzy.computeStraightScore(yatzy.getDice(), expectedStraightList, Yatzy.Straight.LARGE));
     }
-
 
 }
